@@ -1,13 +1,17 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SeleniumExtras.WaitHelpers;
 
 namespace SeleniumAndSpecflowTestProject.Base
 {
     public abstract class PageObject
     {
         protected readonly IWebDriver webDriver;
+
+        private const int defaultWaitTime = 60;
 
         public PageObject(IWebDriver webDriver)
         {
@@ -40,6 +44,11 @@ namespace SeleniumAndSpecflowTestProject.Base
             System.Threading.Thread.Sleep((int)(1000 * seconds));
         }
 
-
+        protected void WaitForAjax(int seconds = defaultWaitTime)
+        {
+            var js = (IJavaScriptExecutor)webDriver;
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
+            wait.Until(wd => js.ExecuteScript("return jQuery.active").ToString() == "0");
+        }
     }
 }
