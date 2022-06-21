@@ -25,7 +25,7 @@ namespace SeleniumAndSpecflowPageModel.Wikipedia
         public WikipediaMainPage GoToPolishWikipedia()
         {
             GetIWebElementByXPath(btnCountryWikipedia, "pl").Click();
-            Sleep(2.0); // Replace with WaitForAjaxComplete
+            WaitForAjax();
 
             return new WikipediaMainPage(webDriver);
         }
