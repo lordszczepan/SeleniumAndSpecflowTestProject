@@ -16,21 +16,21 @@ namespace SeleniumAndSpecflowTests.Wikipedia
         [Given(@"Welcome Wikipedia Page is presented")]
         public void GivenWelcomeWikipediaPageIsPresented()
         {
-            var wikiWelcomePage = new WikiWelcomePage(webDriver);
+            var wikiWelcomePage = new WikipediaWelcomePage(webDriver);
             Assert.IsTrue(wikiWelcomePage.IsLoaded());
         }
 
         [When(@"Polish Version of Wikipedia will be selected")]
         public void WhenPolishVersionOfWikipediaWillBeSelected()
         {
-            var wikiWelcomePage = new WikiWelcomePage(webDriver);
+            var wikiWelcomePage = new WikipediaWelcomePage(webDriver);
             wikiWelcomePage.GoToPolishWikipedia();
         }
 
         [Then(@"Wikipedia in polish language will be displayed")]
         public void ThenWikipediaInPolishLanguageWillBeDisplayed()
         {
-            var wikiMainPage = new WikiMainPage(webDriver);
+            var wikiMainPage = new WikipediaMainPage(webDriver);
             Assert.IsTrue(wikiMainPage.IsLoaded());
         }
     }

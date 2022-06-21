@@ -6,9 +6,9 @@ using System.Text;
 
 namespace SeleniumAndSpecflowPageModel.Wikipedia
 {
-    public class WikiWelcomePage : PageObject
+    public class WikipediaWelcomePage : PageObject
     {
-        public WikiWelcomePage(IWebDriver webDriver) : base(webDriver)
+        public WikipediaWelcomePage(IWebDriver webDriver) : base(webDriver)
         {
         }
 
@@ -22,12 +22,12 @@ namespace SeleniumAndSpecflowPageModel.Wikipedia
             return IsElementDisplayed(txtLogo);
         }
 
-        public WikiMainPage GoToPolishWikipedia()
+        public WikipediaMainPage GoToPolishWikipedia()
         {
             GetIWebElementByXPath(btnCountryWikipedia, "pl").Click();
             Sleep(2.0); // Replace with WaitForAjaxComplete
 
-            return new WikiMainPage(webDriver);
+            return new WikipediaMainPage(webDriver);
         }
     }
 }

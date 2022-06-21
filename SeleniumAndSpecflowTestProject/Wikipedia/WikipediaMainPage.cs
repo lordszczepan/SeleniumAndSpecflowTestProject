@@ -6,9 +6,9 @@ using System.Text;
 
 namespace SeleniumAndSpecflowPageModel.Wikipedia
 {
-    public class WikiMainPage : PageObject
+    public class WikipediaMainPage : PageObject
     {
-        public WikiMainPage(IWebDriver webDriver) : base(webDriver)
+        public WikipediaMainPage(IWebDriver webDriver) : base(webDriver)
         {
         }
 
