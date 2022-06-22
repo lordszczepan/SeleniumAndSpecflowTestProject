@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SeleniumAndSpecflowTestProject\SeleniumAndSpecflowPageModel.csproj" />
+    <ProjectReference Include="..\SeleniumAndSpecflowPageModel\SeleniumAndSpecflowPageModel.csproj" />
   </ItemGroup>
 
 </Project>

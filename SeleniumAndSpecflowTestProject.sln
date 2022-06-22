@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32602.291
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeleniumAndSpecflowPageModel", "SeleniumAndSpecflowTestProject\SeleniumAndSpecflowPageModel.csproj", "{70406FCC-31F0-4FE0-92D8-BF9DA0BFB06A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeleniumAndSpecflowPageModel", "SeleniumAndSpecflowPageModel\SeleniumAndSpecflowPageModel.csproj", "{70406FCC-31F0-4FE0-92D8-BF9DA0BFB06A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeleniumAndSpecflowTests", "SeleniumAndSpecflowTests\SeleniumAndSpecflowTests.csproj", "{91506AC9-8AB3-4F1A-A255-6DC8845C12C8}"
 EndProject

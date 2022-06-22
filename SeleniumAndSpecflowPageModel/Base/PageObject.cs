@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using SeleniumExtras.WaitHelpers;
 
-namespace SeleniumAndSpecflowTestProject.Base
+namespace SeleniumAndSpecflowPageModel.Base
 {
     public abstract class PageObject
     {
