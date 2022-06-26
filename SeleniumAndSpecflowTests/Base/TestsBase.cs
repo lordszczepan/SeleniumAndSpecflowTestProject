@@ -22,7 +22,7 @@ namespace SeleniumAndSpecflowTests.Base
             webDriver = new WebDriverBuilder()
                 .WithUrl(url)
                 //.WithDownloadLocation(downloadsLocation)
-                .OfType(WebDriverType.Chrome)
+                .OfType(Browser.Chrome)
                 .RunInMaximizedWindow(false)
                 .InHeadlessMode(false)
                 .Build();

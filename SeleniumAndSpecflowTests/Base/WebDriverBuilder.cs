@@ -9,13 +9,13 @@ namespace SeleniumAndSpecflowTests.Base
     internal class WebDriverBuilder
     {
         private IWebDriver driver;
-        private WebDriverType type;
+        private Browser type;
         private string url;
         private string downloadsLocation;
         private bool maximizeWindow;
         private bool headlessMode;
 
-        public WebDriverBuilder OfType(WebDriverType type)
+        public WebDriverBuilder OfType(Browser type)
         {
             this.type = type;
             return this;
@@ -49,7 +49,7 @@ namespace SeleniumAndSpecflowTests.Base
         {
             switch (type)
             {
-                case WebDriverType.Chrome:
+                case Browser.Chrome:
                     ChromeOptions options = new ChromeOptions();
                     //options.AddUserProfilePreference("download.default_directory", $@"{downloadsLocation}\");
                     options.AddUserProfilePreference("download.prompt_for_download", false);

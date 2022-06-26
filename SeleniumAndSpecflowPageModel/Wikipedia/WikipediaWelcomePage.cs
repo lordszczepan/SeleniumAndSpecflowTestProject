@@ -14,8 +14,9 @@ namespace SeleniumAndSpecflowPageModel.Wikipedia
 
         private const string btnCountryWikipedia = "//*/div[@lang='{0}']/a";
 
-        private IWebElement txtLogo => webDriver.FindElement(By.ClassName("central-textlogo-wrapper")).
+        private Element txtLogo => Driver.FindElement(By.ClassName("central-textlogo-wrapper")).
             FindElement(By.XPath("//span[contains(@class,'central-textlogo__image')]"));
+
 
         public override bool IsLoaded()
         {

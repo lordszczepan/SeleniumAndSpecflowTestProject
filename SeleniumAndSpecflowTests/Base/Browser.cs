@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SeleniumAndSpecflowTests.Base
 {
-    internal enum WebDriverType
+    internal enum Browser
     {
         Chrome = 0,
         Firefox = 1,
