@@ -12,12 +12,12 @@ namespace SeleniumAndSpecflowPageModel.Base
         protected readonly IWebDriver webDriver;
         //private WebDriverWait webDriverWait;
         private const int defaultWaitTime = 60;
-        protected readonly Driver Driver;
+        protected readonly Driver driver;
 
         public PageObject(IWebDriver webDriver)
         {
             this.webDriver = webDriver;
-            Driver = new Driver(webDriver);
+            driver = new Driver(webDriver);
         }
 
         public abstract bool IsLoaded();
@@ -37,7 +37,7 @@ namespace SeleniumAndSpecflowPageModel.Base
         protected Element GetIWebElementByXPath(string webElementXPath, params string[] argument)
         {
             string locator = string.Format(webElementXPath, argument);
-            Element webElement = Driver.FindElement(By.XPath(locator));
+            Element webElement = driver.FindElement(By.XPath(locator));
             return webElement;
         }
 
