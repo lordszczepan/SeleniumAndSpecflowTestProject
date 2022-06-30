@@ -14,19 +14,14 @@ namespace SeleniumAndSpecflowTests.Base
         private string downloadsLocation;
         private bool maximizeWindow;
         private bool headlessMode;
+        private int implicitWaitTime;
 
         public WebDriverBuilder OfType(Browser type)
         {
             this.type = type;
             return this;
         }
-
-        public WebDriverBuilder WithUrl(string url)
-        {
-            this.url = url;
-            return this;
-        }
-
+        
         //public WebDriverBuilder WithDownloadLocation(string downloadsLocation)
         //{
         //    this.downloadsLocation = downloadsLocation;
@@ -42,6 +37,12 @@ namespace SeleniumAndSpecflowTests.Base
         public WebDriverBuilder InHeadlessMode(bool headlessMode)
         {
             this.headlessMode = headlessMode;
+            return this;
+        }
+
+        public WebDriverBuilder ImplicitWait(int implicitWaitTime)
+        {
+            this.implicitWaitTime = implicitWaitTime;
             return this;
         }
 
@@ -79,13 +80,11 @@ namespace SeleniumAndSpecflowTests.Base
                 //    break;
             }
 
-            //driver.Url = url;
+            TimeSpan time = TimeSpan.FromSeconds(implicitWaitTime);
+            driver.Manage().Timeouts().ImplicitWait = time;
 
             if (maximizeWindow)
                 driver.Manage().Window.Maximize();
-
-            TimeSpan time = TimeSpan.FromSeconds(10);
-            driver.Manage().Timeouts().ImplicitWait = time;
 
             return driver;
         }
