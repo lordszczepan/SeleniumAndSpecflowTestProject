@@ -12,14 +12,11 @@ namespace SeleniumAndSpecflowPageModel.Wikipedia
         {
         }
 
-        private Element mainPage => driver.FindElement(By.XPath("//*[@id='content'][@class='mw-body']"));
+        private Element mainPage => driver.FindElement(By.XPath("//*[@id='content'][contains(@class,'mw-body')]"));
         
         public override bool IsLoaded()
         {
             return IsElementDisplayed(mainPage);
         }
-
-        
-        
     }
 }

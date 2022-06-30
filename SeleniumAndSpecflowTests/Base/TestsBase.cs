@@ -20,22 +20,31 @@ namespace SeleniumAndSpecflowTests.Base
         protected void SetUp()
         {
             webDriver = new WebDriverBuilder()
-                .WithUrl(url)
+                //.WithUrl(url)
                 //.WithDownloadLocation(downloadsLocation)
                 .OfType(Browser.Chrome)
                 .RunInMaximizedWindow(false)
                 .InHeadlessMode(false)
                 .Build();
+            GoToUrl(url);
         }
 
         [TearDown]
         protected void CleanUp()
         {
+            
             TearDownCleanUp();
+        }
+
+        protected void GoToUrl(string url)
+        {
+            Console.WriteLine($"Go to URL = {url}");
+            webDriver.Navigate().GoToUrl(url);
         }
 
         protected void TearDownCleanUp()
         {
+            Console.WriteLine("Close browser");
             try
             {
                 webDriver.Manage().Cookies.DeleteAllCookies();

@@ -47,6 +47,7 @@ namespace SeleniumAndSpecflowTests.Base
 
         public IWebDriver Build()
         {
+            Console.WriteLine($"Start browser = {Enum.GetName(typeof(Browser), type)}");
             switch (type)
             {
                 case Browser.Chrome:
@@ -79,7 +80,7 @@ namespace SeleniumAndSpecflowTests.Base
                 //    break;
             }
 
-            driver.Url = url;
+            //driver.Url = url;
 
             if (maximizeWindow)
                 driver.Manage().Window.Maximize();
