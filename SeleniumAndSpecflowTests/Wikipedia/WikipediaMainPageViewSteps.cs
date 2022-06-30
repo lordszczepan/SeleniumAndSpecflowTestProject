@@ -9,7 +9,9 @@ namespace SeleniumAndSpecflowTests.Wikipedia
     [Binding]
     public class WikipediaMainPageViewSteps : SpecFlowTestsBase
     {
-        public WikipediaMainPageViewSteps() : base("https://www.wikipedia.org")
+        private static TestsSettings settings = new TestsSettings("https://www.wikipedia.org", false, Browser.Chrome);
+
+        public WikipediaMainPageViewSteps() : base(settings)
         {
         }
 

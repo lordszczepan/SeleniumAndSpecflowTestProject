@@ -10,10 +10,16 @@ namespace SeleniumAndSpecflowTests.Base
     {
         protected IWebDriver webDriver;
         private readonly string url;
+        private readonly bool headlessMode;
+        private readonly Browser browser;
+        //private readonly TestsSettings settings;
 
-        protected TestsBase(string url)
+        protected TestsBase(TestsSettings settings)
         {
-            this.url = url;
+            //this.settings = settings;
+            this.url = settings.Url;
+            this.headlessMode = settings.HealdessMode;
+            this.browser = settings.Browser;
         }
 
         [SetUp]
@@ -22,9 +28,9 @@ namespace SeleniumAndSpecflowTests.Base
             webDriver = new WebDriverBuilder()
                 //.WithUrl(url)
                 //.WithDownloadLocation(downloadsLocation)
-                .OfType(Browser.Chrome)
+                .OfType(browser)
                 .RunInMaximizedWindow(false)
-                .InHeadlessMode(false)
+                .InHeadlessMode(headlessMode)
                 .Build();
             GoToUrl(url);
         }
@@ -32,7 +38,6 @@ namespace SeleniumAndSpecflowTests.Base
         [TearDown]
         protected void CleanUp()
         {
-            
             TearDownCleanUp();
         }
 
@@ -44,24 +49,27 @@ namespace SeleniumAndSpecflowTests.Base
 
         protected void TearDownCleanUp()
         {
-            Console.WriteLine("Close browser");
+            Console.WriteLine("Delete Cookies");
             try
             {
                 webDriver.Manage().Cookies.DeleteAllCookies();
             }
             catch { }
+            
+            //try
+            //{
+            //    webDriver.Close();
+            //}
+            //catch { }
 
-            try
-            {
-                webDriver.Close();
-            }
-            catch { }
-
+            Console.WriteLine("Close browser");
             try
             {
                 webDriver.Quit();
             }
             catch { }
+
+
         }
     }
 }
