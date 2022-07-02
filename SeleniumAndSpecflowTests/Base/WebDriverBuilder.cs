@@ -9,21 +9,16 @@ namespace SeleniumAndSpecflowTests.Base
     internal class WebDriverBuilder
     {
         private IWebDriver driver;
-        private WebDriverType type;
+        private Browser type;
         private string url;
         private string downloadsLocation;
         private bool maximizeWindow;
         private bool headlessMode;
+        private int implicitWaitTime;
 
-        public WebDriverBuilder OfType(WebDriverType type)
+        public WebDriverBuilder OfType(Browser type)
         {
             this.type = type;
-            return this;
-        }
-
-        public WebDriverBuilder WithUrl(string url)
-        {
-            this.url = url;
             return this;
         }
 
@@ -45,11 +40,17 @@ namespace SeleniumAndSpecflowTests.Base
             return this;
         }
 
+        public WebDriverBuilder ImplicitWait(int implicitWaitTime)
+        {
+            this.implicitWaitTime = implicitWaitTime;
+            return this;
+        }
+
         public IWebDriver Build()
         {
             switch (type)
             {
-                case WebDriverType.Chrome:
+                case Browser.Chrome:
                     ChromeOptions options = new ChromeOptions();
                     //options.AddUserProfilePreference("download.default_directory", $@"{downloadsLocation}\");
                     options.AddUserProfilePreference("download.prompt_for_download", false);
@@ -79,13 +80,11 @@ namespace SeleniumAndSpecflowTests.Base
                 //    break;
             }
 
-            driver.Url = url;
+            TimeSpan time = TimeSpan.FromSeconds(implicitWaitTime);
+            driver.Manage().Timeouts().ImplicitWait = time;
 
             if (maximizeWindow)
                 driver.Manage().Window.Maximize();
-
-            TimeSpan time = TimeSpan.FromSeconds(10);
-            driver.Manage().Timeouts().ImplicitWait = time;
 
             return driver;
         }

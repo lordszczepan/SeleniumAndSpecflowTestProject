@@ -9,23 +9,31 @@ namespace SeleniumAndSpecflowTests.Base
     public abstract class TestsBase
     {
         protected IWebDriver webDriver;
+        private readonly Browser browser; 
         private readonly string url;
+        private readonly bool headlessMode;
+        private readonly int implicitWait;
+        //private readonly string downloadsLocation;
 
-        protected TestsBase(string url)
+        protected TestsBase(TestsSettings settings)
         {
-            this.url = url;
+            this.browser = settings.Browser; 
+            this.url = settings.Url;
+            this.headlessMode = settings.HealdessMode;
+            this.implicitWait = settings.ImplicitWait;
         }
 
         [SetUp]
         protected void SetUp()
         {
             webDriver = new WebDriverBuilder()
-                .WithUrl(url)
                 //.WithDownloadLocation(downloadsLocation)
-                .OfType(WebDriverType.Chrome)
+                .OfType(browser)
                 .RunInMaximizedWindow(false)
-                .InHeadlessMode(false)
+                .InHeadlessMode(headlessMode)
+                .ImplicitWait(implicitWait)
                 .Build();
+            GoToUrl(url);
         }
 
         [TearDown]
@@ -34,8 +42,15 @@ namespace SeleniumAndSpecflowTests.Base
             TearDownCleanUp();
         }
 
+        protected void GoToUrl(string url)
+        {
+            Console.WriteLine($"Go to URL = {url}");
+            webDriver.Navigate().GoToUrl(url);
+        }
+
         protected void TearDownCleanUp()
         {
+            Console.WriteLine("Delete Cookies");
             try
             {
                 webDriver.Manage().Cookies.DeleteAllCookies();
@@ -48,11 +63,14 @@ namespace SeleniumAndSpecflowTests.Base
             }
             catch { }
 
+            Console.WriteLine("Close browser");
             try
             {
                 webDriver.Quit();
             }
             catch { }
+
+
         }
     }
 }

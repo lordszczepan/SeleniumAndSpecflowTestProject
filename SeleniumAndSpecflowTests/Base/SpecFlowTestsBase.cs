@@ -7,7 +7,7 @@ namespace SeleniumAndSpecflowTests.Base
 {
     public class SpecFlowTestsBase : TestsBase
     {
-        public SpecFlowTestsBase(string url) : base(url)
+        public SpecFlowTestsBase(TestsSettings settings) : base(settings)
         {
         }
 
