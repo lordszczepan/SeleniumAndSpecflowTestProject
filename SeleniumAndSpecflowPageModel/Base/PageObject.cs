@@ -46,38 +46,18 @@ namespace SeleniumAndSpecflowPageModel.Base
             System.Threading.Thread.Sleep((int)(1000 * seconds));
         }
 
-        //public override Element FindElement(By locator)
-        //{
-        //    WebDriverWait webDriverWait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(defaultWaitTime));
-        //    IWebElement nativeWebElement =
-        //        webDriverWait.Until(ExpectedConditions.ElementExists(locator));
-        //    Element element = new WebElement(webDriver, nativeWebElement, locator);
-
-        //    Element logElement = new LogElement(element);
-
-        //    return logElement;
-        //}
-
-        //public override List<Element> FindElements(By locator)
-        //{
-        //    WebDriverWait webDriverWait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(defaultWaitTime));
-        //    ReadOnlyCollection<IWebElement> nativeWebElements =
-        //        webDriverWait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(locator));
-        //    var elements = new List<Element>();
-        //    foreach (var nativeWebElement in nativeWebElements)
-        //    {
-        //        Element element = new WebElement(webDriver, nativeWebElement, locator);
-        //        elements.Add(element);
-        //    }
-
-        //    return elements;
-        //}
-
         protected void WaitForAjax(int seconds = defaultWaitTime)
         {
             var js = (IJavaScriptExecutor)webDriver;
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
             wait.Until(wd => js.ExecuteScript("return jQuery.active").ToString() == "0");
+        }
+
+        public void WaitUntilPageLoadsCompletely(int seconds = defaultWaitTime)
+        {
+            var js = (IJavaScriptExecutor)webDriver;
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
+            wait.Until(wd => js.ExecuteScript("return document.readyState").ToString() == "complete");
         }
     }
 }

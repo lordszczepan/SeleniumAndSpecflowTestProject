@@ -6,15 +6,28 @@ namespace SeleniumAndSpecflowTests.Base
 {
     public class TestsSettings
     {
+        private Browser browser;
         private string url;
         private bool headlessMode;
-        private Browser browser;
+        private bool fullscreenMode;
+        private int implicitWait;
 
-        public TestsSettings(string url, bool headlessMode, Browser browser)
+        public TestsSettings(Browser browser, string url, bool headlessMode, bool fullscreenMode, int implicitWait)
         {
+            this.browser = browser;
             this.url = url;
             this.headlessMode = headlessMode;
-            this.browser = browser;
+            this.fullscreenMode = fullscreenMode;
+            this.implicitWait = implicitWait;
+        }
+
+        public Browser Browser
+        {
+            get
+            {
+                Console.WriteLine($"Setting: Browser = {Enum.GetName(typeof(Browser), browser)}");
+                return browser;
+            }
         }
 
         public string Url
@@ -36,12 +49,22 @@ namespace SeleniumAndSpecflowTests.Base
             }
         }
 
-        public Browser Browser
+        public bool FullScreenMode
         {
             get
             {
-                Console.WriteLine($"Setting: Browser = {Enum.GetName(typeof(Browser), browser)}");
-                return browser;
+                string fullscreenModeState = fullscreenMode == true ? "On" : "Off";
+                Console.WriteLine($"Setting: Fullscreen Mode = {fullscreenModeState}");
+                return fullscreenMode;
+            }
+        }
+
+        public int ImplicitWait
+        {
+            get
+            {
+                Console.WriteLine($"Setting: Implicit Wait = {implicitWait.ToString()}");
+                return implicitWait;
             }
         }
     }

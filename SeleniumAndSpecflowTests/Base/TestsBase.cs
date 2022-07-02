@@ -9,28 +9,29 @@ namespace SeleniumAndSpecflowTests.Base
     public abstract class TestsBase
     {
         protected IWebDriver webDriver;
+        private readonly Browser browser; 
         private readonly string url;
         private readonly bool headlessMode;
-        private readonly Browser browser;
-        //private readonly TestsSettings settings;
+        private readonly int implicitWait;
+        //private readonly string downloadsLocation;
 
         protected TestsBase(TestsSettings settings)
         {
-            //this.settings = settings;
+            this.browser = settings.Browser; 
             this.url = settings.Url;
             this.headlessMode = settings.HealdessMode;
-            this.browser = settings.Browser;
+            this.implicitWait = settings.ImplicitWait;
         }
 
         [SetUp]
         protected void SetUp()
         {
             webDriver = new WebDriverBuilder()
-                //.WithUrl(url)
                 //.WithDownloadLocation(downloadsLocation)
                 .OfType(browser)
                 .RunInMaximizedWindow(false)
                 .InHeadlessMode(headlessMode)
+                .ImplicitWait(implicitWait)
                 .Build();
             GoToUrl(url);
         }
@@ -55,12 +56,12 @@ namespace SeleniumAndSpecflowTests.Base
                 webDriver.Manage().Cookies.DeleteAllCookies();
             }
             catch { }
-            
-            //try
-            //{
-            //    webDriver.Close();
-            //}
-            //catch { }
+
+            try
+            {
+                webDriver.Close();
+            }
+            catch { }
 
             Console.WriteLine("Close browser");
             try

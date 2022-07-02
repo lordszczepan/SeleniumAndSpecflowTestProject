@@ -21,7 +21,7 @@ namespace SeleniumAndSpecflowTests.Base
             this.type = type;
             return this;
         }
-        
+
         //public WebDriverBuilder WithDownloadLocation(string downloadsLocation)
         //{
         //    this.downloadsLocation = downloadsLocation;

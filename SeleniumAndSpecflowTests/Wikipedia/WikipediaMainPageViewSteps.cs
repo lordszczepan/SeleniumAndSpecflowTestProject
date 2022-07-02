@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using SeleniumAndSpecflowPageModel.Base;
 using SeleniumAndSpecflowPageModel.Wikipedia;
 using SeleniumAndSpecflowTests.Base;
 using System;
@@ -9,9 +10,9 @@ namespace SeleniumAndSpecflowTests.Wikipedia
     [Binding]
     public class WikipediaMainPageViewSteps : SpecFlowTestsBase
     {
-        private static TestsSettings settings = new TestsSettings("https://www.wikipedia.org", false, Browser.Chrome);
+        private static TestsSettings wikipediaSettings = new TestsSettings(Browser.Chrome, "https://www.wikipedia.org", false, false, 10);
 
-        public WikipediaMainPageViewSteps() : base(settings)
+        public WikipediaMainPageViewSteps() : base(wikipediaSettings)
         {
         }
 
