@@ -10,9 +10,8 @@ namespace SeleniumAndSpecflowPageModel.Base
     public abstract class PageObject
     {
         protected readonly IWebDriver webDriver;
-        //private WebDriverWait webDriverWait;
-        private const int defaultWaitTime = 60;
         protected readonly Driver driver;
+        private const int defaultWaitTime = 60;
 
         public PageObject(IWebDriver webDriver)
         {
@@ -58,6 +57,30 @@ namespace SeleniumAndSpecflowPageModel.Base
             var js = (IJavaScriptExecutor)webDriver;
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
             wait.Until(wd => js.ExecuteScript("return document.readyState").ToString() == "complete");
+        }
+
+        protected void WaitForElementToBeVisible(By search, int seconds = defaultWaitTime)
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
+            wait.Until(ExpectedConditions.ElementIsVisible(search));
+        }
+
+        protected void WaitForElementToBeInvisible(By search, int seconds = defaultWaitTime)
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
+            wait.Until(ExpectedConditions.InvisibilityOfElementLocated(search));
+        }
+
+        protected void WaitForElementToBeClickable(By search, int seconds = defaultWaitTime)
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
+            wait.Until(ExpectedConditions.ElementToBeClickable(search));
+        }
+
+        protected void WaitForElementToBeClickable(IWebElement element, int seconds = defaultWaitTime)
+        {
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
+            wait.Until(ExpectedConditions.ElementToBeClickable(element));
         }
     }
 }

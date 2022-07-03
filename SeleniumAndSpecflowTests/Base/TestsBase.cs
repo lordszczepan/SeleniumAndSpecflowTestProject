@@ -17,6 +17,8 @@ namespace SeleniumAndSpecflowTests.Base
 
         protected TestsBase(TestsSettings settings)
         {
+            
+
             this.browser = settings.Browser; 
             this.url = settings.Url;
             this.headlessMode = settings.HealdessMode;

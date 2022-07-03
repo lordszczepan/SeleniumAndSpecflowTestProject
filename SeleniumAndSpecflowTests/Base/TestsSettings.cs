@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace SeleniumAndSpecflowTests.Base
@@ -12,13 +14,23 @@ namespace SeleniumAndSpecflowTests.Base
         private bool fullscreenMode;
         private int implicitWait;
 
-        public TestsSettings(Browser browser, string url, bool headlessMode, bool fullscreenMode, int implicitWait)
+        //public TestsSettings(Browser browser, string url, bool headlessMode, bool fullscreenMode, int implicitWait)
+        //{
+        //    this.browser = browser;
+        //    this.url = url;
+        //    this.headlessMode = headlessMode;
+        //    this.fullscreenMode = fullscreenMode;
+        //    this.implicitWait = implicitWait;
+        //}
+
+        public TestsSettings(string jsonSettings)
         {
-            this.browser = browser;
-            this.url = url;
-            this.headlessMode = headlessMode;
-            this.fullscreenMode = fullscreenMode;
-            this.implicitWait = implicitWait;
+            dynamic json = JsonConvert.DeserializeObject(jsonSettings);
+            this.browser = Browser.Parse(json.Browser);
+            this.url = json.Url;
+            this.headlessMode = json.HHeadlessMode;
+            this.fullscreenMode = json.FullscreenMode;
+            this.implicitWait = json.ImplicitWait;
         }
 
         public Browser Browser
