@@ -52,7 +52,7 @@ namespace SeleniumAndSpecflowPageModel.Base
             wait.Until(wd => js.ExecuteScript("return jQuery.active").ToString() == "0");
         }
 
-        public void WaitUntilPageLoadsCompletely(int seconds = defaultWaitTime)
+        protected void WaitUntilPageLoadsCompletely(int seconds = defaultWaitTime)
         {
             var js = (IJavaScriptExecutor)webDriver;
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
@@ -75,12 +75,6 @@ namespace SeleniumAndSpecflowPageModel.Base
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
             wait.Until(ExpectedConditions.ElementToBeClickable(search));
-        }
-
-        protected void WaitForElementToBeClickable(IWebElement element, int seconds = defaultWaitTime)
-        {
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
-            wait.Until(ExpectedConditions.ElementToBeClickable(element));
         }
     }
 }

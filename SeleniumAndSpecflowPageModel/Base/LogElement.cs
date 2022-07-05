@@ -5,8 +5,7 @@ namespace SeleniumAndSpecflowPageModel.Base
 {
     public class LogElement : ElementDecorator
     {
-        public LogElement(Element element)
-            : base(element)
+        public LogElement(Element element) : base(element)
         {
         }
 
