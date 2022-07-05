@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SeleniumAndSpecflowTests.Base
 {
@@ -12,13 +10,16 @@ namespace SeleniumAndSpecflowTests.Base
         private bool fullscreenMode;
         private int implicitWait;
 
-        public TestsSettings(Browser browser, string url, bool headlessMode, bool fullscreenMode, int implicitWait)
+        public TestsSettings(string jsonSettingsPath)
         {
-            this.browser = browser;
-            this.url = url;
-            this.headlessMode = headlessMode;
-            this.fullscreenMode = fullscreenMode;
-            this.implicitWait = implicitWait;
+            var jsonConverterObject = new JsonConverter(jsonSettingsPath);
+            var jsonData = jsonConverterObject.GetJsonData;
+            this.url = jsonData.Settings.Url;
+            string browserName = jsonData.Settings.Browser;
+            this.browser = Enum.Parse<Browser>(browserName);
+            this.headlessMode = jsonData.Settings.HeadlessMode;
+            this.fullscreenMode = jsonData.Settings.FullscreenMode;
+            this.implicitWait = jsonData.Settings.ImplicitWait;
         }
 
         public Browser Browser

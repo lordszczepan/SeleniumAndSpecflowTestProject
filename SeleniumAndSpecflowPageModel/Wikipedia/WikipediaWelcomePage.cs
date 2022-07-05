@@ -17,7 +17,6 @@ namespace SeleniumAndSpecflowPageModel.Wikipedia
         private Element txtLogo => driver.FindElement(By.ClassName("central-textlogo-wrapper")).
             FindElement(By.XPath("//span[contains(@class,'central-textlogo__image')]"));
 
-
         public override bool IsLoaded()
         {
             return IsElementDisplayed(txtLogo);

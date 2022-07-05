@@ -12,14 +12,15 @@ namespace SeleniumAndSpecflowTests.Base
         private readonly Browser browser; 
         private readonly string url;
         private readonly bool headlessMode;
+        private readonly bool fullscreenMode;
         private readonly int implicitWait;
-        //private readonly string downloadsLocation;
-
+        
         protected TestsBase(TestsSettings settings)
         {
             this.browser = settings.Browser; 
             this.url = settings.Url;
             this.headlessMode = settings.HealdessMode;
+            this.fullscreenMode = settings.FullScreenMode;
             this.implicitWait = settings.ImplicitWait;
         }
 
@@ -29,7 +30,7 @@ namespace SeleniumAndSpecflowTests.Base
             webDriver = new WebDriverBuilder()
                 //.WithDownloadLocation(downloadsLocation)
                 .OfType(browser)
-                .RunInMaximizedWindow(false)
+                .RunInMaximizedWindow(fullscreenMode)
                 .InHeadlessMode(headlessMode)
                 .ImplicitWait(implicitWait)
                 .Build();
