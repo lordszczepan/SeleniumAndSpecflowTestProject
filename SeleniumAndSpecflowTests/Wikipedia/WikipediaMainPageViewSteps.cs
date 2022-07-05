@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using SeleniumAndSpecflowPageModel.Base;
 using SeleniumAndSpecflowPageModel.Wikipedia;
 using SeleniumAndSpecflowTests.Base;
+using SeleniumAndSpecflowTests.JsonSettings;
 using System;
 using System.IO;
 using System.Reflection;
@@ -12,26 +12,7 @@ namespace SeleniumAndSpecflowTests.Wikipedia
     [Binding]
     public class WikipediaMainPageViewSteps : SpecFlowTestsBase
     {
-
-        //private static TestsSettings wikipediaSettings = new TestsSettings(Browser.Chrome, "https://www.wikipedia.org", false, false, 10);
-
-
-
-
-        ///string json = File.ReadAllText("JsonSettings/WikipediaSettings.json");
-
-        private static TestsSettings wikipediaSettings = new TestsSettings(returnJson());
-
-        public static string returnJson()
-        {
-            string workingDirectory = Environment.CurrentDirectory;
-            string currentDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
-            string filePath = System.IO.Path.Combine(currentDirectory, "JsonSettings", "WikipediaSettings.json");
-            StreamReader r = new StreamReader(filePath);
-
-            string json = r.ReadToEnd();
-            return json;
-        }
+        private static TestsSettings wikipediaSettings = new TestsSettings(TestData.JsonSettings.WikipediaSettings);   
 
         public WikipediaMainPageViewSteps() : base(wikipediaSettings)
         {
