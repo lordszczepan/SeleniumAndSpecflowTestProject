@@ -70,8 +70,6 @@ namespace SeleniumAndSpecflowTests.Base
                 webDriver.Quit();
             }
             catch { }
-
-
         }
     }
 }
