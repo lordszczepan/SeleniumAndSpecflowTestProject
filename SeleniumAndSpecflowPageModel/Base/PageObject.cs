@@ -76,5 +76,12 @@ namespace SeleniumAndSpecflowPageModel.Base
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
             wait.Until(ExpectedConditions.ElementToBeClickable(search));
         }
+
+        protected void ScrollToPosition(int xPosition = 0, int yPosition = 0)
+        {
+            Console.WriteLine($"Scroll To Position: X:'{xPosition}' Y:'{yPosition}'");
+            IJavaScriptExecutor js = (IJavaScriptExecutor)webDriver;
+            js.ExecuteScript(($"window.scrollTo({xPosition}, {yPosition})"));
+        }
     }
 }

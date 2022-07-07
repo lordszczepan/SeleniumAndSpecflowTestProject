@@ -11,6 +11,7 @@ namespace SeleniumAndSpecflowPageModel.Base
         public abstract void TypeText(string text);
         public abstract Element FindElement(By locator);
         public abstract void Click();
+        public abstract void ScrollTo();
         public abstract string GetAttribute(string attributeName);
     }
 }

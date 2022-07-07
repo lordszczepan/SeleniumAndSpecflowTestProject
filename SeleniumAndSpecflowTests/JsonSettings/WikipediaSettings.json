@@ -4,7 +4,7 @@
     "Browser": "Chrome",
     "Url": "https://www.wikipedia.org",
     "HeadlessMode": false,
-    "FullscreenMode": true,
+    "FullscreenMode": false,
     "ImplicitWait": 10
   }
 }

@@ -33,6 +33,12 @@ namespace SeleniumAndSpecflowPageModel.Base
             webElement?.Click();
         }
 
+        public override void ScrollTo()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)webDriver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", webElement.FindElement(By));
+        }
+
         public override Element FindElement(By locator)
         {
             return new WebElement(webDriver, webElement?.FindElement(locator), locator);

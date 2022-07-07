@@ -24,6 +24,11 @@ namespace SeleniumAndSpecflowPageModel.Base
             Element?.Click();
         }
 
+        public override void ScrollTo()
+        {
+            Element?.ScrollTo();
+        }
+
         public override string GetAttribute(string attributeName)
         {
             return Element?.GetAttribute(attributeName);

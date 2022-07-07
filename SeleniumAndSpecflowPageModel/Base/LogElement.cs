@@ -40,8 +40,14 @@ namespace SeleniumAndSpecflowPageModel.Base
 
         public override void Click()
         {
-            Console.WriteLine($"Element Clicked");
+            Console.WriteLine($"Click Element: '{By.ToString()}'");
             Element?.Click();
+        }
+
+        public override void ScrollTo()
+        {
+            Console.WriteLine($"Scroll To Element: '{By.ToString()}'");
+            Element?.ScrollTo();
         }
 
         public override Element FindElement(By locator)
