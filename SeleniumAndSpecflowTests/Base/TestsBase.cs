@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace SeleniumAndSpecflowTests.Base
@@ -14,7 +15,8 @@ namespace SeleniumAndSpecflowTests.Base
         private readonly bool headlessMode;
         private readonly bool fullscreenMode;
         private readonly int implicitWait;
-        
+        private readonly string downloadsPath;
+
         protected TestsBase(TestsSettings settings)
         {
             this.browser = settings.Browser; 
@@ -22,19 +24,21 @@ namespace SeleniumAndSpecflowTests.Base
             this.headlessMode = settings.HealdessMode;
             this.fullscreenMode = settings.FullScreenMode;
             this.implicitWait = settings.ImplicitWait;
+            this.downloadsPath = settings.DownloadPath;
         }
 
         [SetUp]
         protected void SetUp()
         {
             webDriver = new WebDriverBuilder()
-                //.WithDownloadLocation(downloadsLocation)
+                .WithDownloadPath(downloadsPath)
                 .OfType(browser)
                 .RunInMaximizedWindow(fullscreenMode)
                 .InHeadlessMode(headlessMode)
                 .ImplicitWait(implicitWait)
                 .Build();
             GoToUrl(url);
+            PrepareDownloadFolder();
         }
 
         [TearDown]
@@ -49,6 +53,14 @@ namespace SeleniumAndSpecflowTests.Base
             webDriver.Navigate().GoToUrl(url);
         }
 
+        protected void PrepareDownloadFolder()
+        {
+            if (!File.Exists(downloadsPath))
+            {
+                Directory.CreateDirectory(downloadsPath);
+            }
+        }
+
         protected void TearDownCleanUp()
         {
             Console.WriteLine("Delete Cookies");
@@ -58,16 +70,10 @@ namespace SeleniumAndSpecflowTests.Base
             }
             catch { }
 
-            try
-            {
-                webDriver.Close();
-            }
-            catch { }
-
             Console.WriteLine("Close browser");
             try
             {
-                webDriver.Quit();
+                webDriver.Close();
             }
             catch { }
         }

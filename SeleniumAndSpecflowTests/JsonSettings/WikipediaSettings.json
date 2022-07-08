@@ -1,10 +1,10 @@
 {
-  "Settings": 
-  {
+  "Settings": {
     "Browser": "Chrome",
     "Url": "https://www.wikipedia.org",
     "HeadlessMode": false,
     "FullscreenMode": false,
-    "ImplicitWait": 10
+    "ImplicitWait": 10,
+    "DownloadPath": "C:\\Downloads\\Wikipedia"
   }
 }
