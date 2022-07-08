@@ -11,10 +11,10 @@ namespace SeleniumAndSpecflowTests.Base
         private IWebDriver driver;
         private Browser type;
         private string url;
-        private string downloadsLocation;
         private bool maximizeWindow;
         private bool headlessMode;
         private int implicitWaitTime;
+        private string downloadPath;
 
         public WebDriverBuilder OfType(Browser type)
         {
@@ -22,11 +22,11 @@ namespace SeleniumAndSpecflowTests.Base
             return this;
         }
 
-        //public WebDriverBuilder WithDownloadLocation(string downloadsLocation)
-        //{
-        //    this.downloadsLocation = downloadsLocation;
-        //    return this;
-        //}
+        public WebDriverBuilder WithDownloadPath(string downloadPath)
+        {
+            this.downloadPath = downloadPath;
+            return this;
+        }
 
         public WebDriverBuilder RunInMaximizedWindow(bool maximizeWindow)
         {
@@ -52,7 +52,7 @@ namespace SeleniumAndSpecflowTests.Base
             {
                 case Browser.Chrome:
                     ChromeOptions options = new ChromeOptions();
-                    //options.AddUserProfilePreference("download.default_directory", $@"{downloadsLocation}\");
+                    options.AddUserProfilePreference("download.default_directory", @$"{downloadPath}\");
                     options.AddUserProfilePreference("download.prompt_for_download", false);
                     options.AddUserProfilePreference("safebrowsing.disable_download_protection", true);
                     options.AddUserProfilePreference("profile.default_content_setting_values.automatic_downloads", 1);

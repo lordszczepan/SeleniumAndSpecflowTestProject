@@ -9,6 +9,7 @@ namespace SeleniumAndSpecflowTests.Base
         private bool headlessMode;
         private bool fullscreenMode;
         private int implicitWait;
+        private string downloadPath;
 
         public TestsSettings(string jsonSettingsPath)
         {
@@ -20,6 +21,7 @@ namespace SeleniumAndSpecflowTests.Base
             this.headlessMode = jsonData.Settings.HeadlessMode;
             this.fullscreenMode = jsonData.Settings.FullscreenMode;
             this.implicitWait = jsonData.Settings.ImplicitWait;
+            this.downloadPath = jsonData.Settings.DownloadPath;
         }
 
         public Browser Browser
@@ -66,6 +68,15 @@ namespace SeleniumAndSpecflowTests.Base
             {
                 Console.WriteLine($"Setting: Implicit Wait = {implicitWait.ToString()}");
                 return implicitWait;
+            }
+        }
+
+        public string DownloadPath
+        {
+            get
+            {
+                Console.WriteLine($"Setting: Download Path = {downloadPath}");
+                return downloadPath;
             }
         }
     }
