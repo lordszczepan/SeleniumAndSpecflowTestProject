@@ -44,6 +44,8 @@ namespace SeleniumAndSpecflowTests.Base
         [TearDown]
         protected void CleanUp()
         {
+            TakeScreenshot();
+            TakeScreenshot();
             TearDownCleanDownloadPath();
             TearDownCleanUp();
         }
@@ -94,6 +96,49 @@ namespace SeleniumAndSpecflowTests.Base
                     Console.WriteLine($"TearDown: Delete file: '{file.ToString()}'");
                     File.Delete(filePath + file.Name);
                 }
+            }
+        }
+
+        protected void TakeScreenshot(ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png, int fileNr = 1)
+        {
+            string folderPath = $@"{downloadPath}\Screenshots";
+            string screenshotName = "Screenshot";
+            string imageExtension = "";
+            switch (imageFormat)
+            {
+                case ScreenshotImageFormat.Bmp:
+                    imageExtension = "bmp";
+                    break;
+                case ScreenshotImageFormat.Gif:
+                    imageExtension = "gif";
+                    break;
+                case ScreenshotImageFormat.Jpeg:
+                    imageExtension = "jpeg";
+                    break;
+
+                // Only Image Format that is supported by .Net Core
+                case ScreenshotImageFormat.Png:
+                    imageExtension = "png";
+                    break;
+                case ScreenshotImageFormat.Tiff:
+                    imageExtension = "tiff";
+                    break;
+            }
+
+            Screenshot screenshot = ((ITakesScreenshot)webDriver).GetScreenshot();
+
+            if (!File.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            if (File.Exists($@"{folderPath}\{screenshotName}({fileNr}).{imageExtension}"))
+            {
+                TakeScreenshot(imageFormat, fileNr + 1);
+            }
+            else
+            {
+                screenshot.SaveAsFile($@"{folderPath}\{screenshotName}({fileNr}).{imageExtension}", imageFormat);
             }
         }
     }
