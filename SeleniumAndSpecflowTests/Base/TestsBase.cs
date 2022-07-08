@@ -101,7 +101,7 @@ namespace SeleniumAndSpecflowTests.Base
 
         protected void TakeScreenshot(ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png, int fileNr = 1)
         {
-            string folderPath = $@"{downloadPath}\Screenshots";
+            string screenshotPath = $@"{downloadPath}\Screenshots";
             string screenshotName = "Screenshot";
             string imageExtension = "";
             switch (imageFormat)
@@ -125,20 +125,23 @@ namespace SeleniumAndSpecflowTests.Base
                     break;
             }
 
+            string screenshotFilePath = $@"{screenshotPath}\{screenshotName}({fileNr}).{imageExtension}";
+
             Screenshot screenshot = ((ITakesScreenshot)webDriver).GetScreenshot();
 
-            if (!File.Exists(folderPath))
+            if (!File.Exists(screenshotPath))
             {
-                Directory.CreateDirectory(folderPath);
+                Directory.CreateDirectory(screenshotPath);
             }
 
-            if (File.Exists($@"{folderPath}\{screenshotName}({fileNr}).{imageExtension}"))
+            if (File.Exists(screenshotFilePath))
             {
                 TakeScreenshot(imageFormat, fileNr + 1);
             }
             else
             {
-                screenshot.SaveAsFile($@"{folderPath}\{screenshotName}({fileNr}).{imageExtension}", imageFormat);
+                Console.WriteLine($"Screenshot: Taking screenshot: '{screenshotFilePath}'");
+                screenshot.SaveAsFile(screenshotFilePath, imageFormat);
             }
         }
     }
