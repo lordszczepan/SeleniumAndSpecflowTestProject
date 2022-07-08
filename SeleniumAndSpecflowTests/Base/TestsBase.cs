@@ -15,7 +15,7 @@ namespace SeleniumAndSpecflowTests.Base
         private readonly bool headlessMode;
         private readonly bool fullscreenMode;
         private readonly int implicitWait;
-        private readonly string downloadsPath;
+        private readonly string downloadPath;
 
         protected TestsBase(TestsSettings settings)
         {
@@ -24,14 +24,14 @@ namespace SeleniumAndSpecflowTests.Base
             this.headlessMode = settings.HealdessMode;
             this.fullscreenMode = settings.FullScreenMode;
             this.implicitWait = settings.ImplicitWait;
-            this.downloadsPath = settings.DownloadPath;
+            this.downloadPath = settings.DownloadPath;
         }
 
         [SetUp]
         protected void SetUp()
         {
             webDriver = new WebDriverBuilder()
-                .WithDownloadPath(downloadsPath)
+                .WithDownloadPath(downloadPath)
                 .OfType(browser)
                 .RunInMaximizedWindow(fullscreenMode)
                 .InHeadlessMode(headlessMode)
@@ -44,38 +44,57 @@ namespace SeleniumAndSpecflowTests.Base
         [TearDown]
         protected void CleanUp()
         {
+            TearDownCleanDownloadPath();
             TearDownCleanUp();
         }
 
         protected void GoToUrl(string url)
         {
-            Console.WriteLine($"Go to URL = {url}");
+            Console.WriteLine($"SetUp: Go to URL = {url}");
             webDriver.Navigate().GoToUrl(url);
         }
 
         protected void PrepareDownloadFolder()
         {
-            if (!File.Exists(downloadsPath))
+            Console.WriteLine("SetUp: Prepare download path");
+            if (!File.Exists(downloadPath))
             {
-                Directory.CreateDirectory(downloadsPath);
+                Directory.CreateDirectory(downloadPath);
             }
         }
 
         protected void TearDownCleanUp()
         {
-            Console.WriteLine("Delete Cookies");
+            Console.WriteLine("TearDown: Delete Cookies");
             try
             {
                 webDriver.Manage().Cookies.DeleteAllCookies();
             }
             catch { }
 
-            Console.WriteLine("Close browser");
+            Console.WriteLine("TearDown: Close browser");
             try
             {
                 webDriver.Close();
             }
             catch { }
+        }
+
+        private void TearDownCleanDownloadPath()
+        {
+            Console.WriteLine("TearDown: Clean download path");
+            string filePath = $@"{downloadPath}\";
+            var files = new DirectoryInfo(filePath).GetFiles();
+            int filesCount = files.Length;
+
+            if (filesCount != 0)
+            {
+                foreach (FileInfo file in files)
+                {
+                    Console.WriteLine($"TearDown: Delete file: '{file.ToString()}'");
+                    File.Delete(filePath + file.Name);
+                }
+            }
         }
     }
 }
