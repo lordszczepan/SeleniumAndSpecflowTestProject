@@ -44,8 +44,7 @@ namespace SeleniumAndSpecflowTests.Base
         [TearDown]
         protected void CleanUp()
         {
-            TakeScreenshot();
-            TakeScreenshot();
+            TearDownRemoveAllScreenshots();
             TearDownCleanDownloadPath();
             TearDownCleanUp();
         }
@@ -62,40 +61,6 @@ namespace SeleniumAndSpecflowTests.Base
             if (!File.Exists(downloadPath))
             {
                 Directory.CreateDirectory(downloadPath);
-            }
-        }
-
-        protected void TearDownCleanUp()
-        {
-            Console.WriteLine("TearDown: Delete Cookies");
-            try
-            {
-                webDriver.Manage().Cookies.DeleteAllCookies();
-            }
-            catch { }
-
-            Console.WriteLine("TearDown: Close browser");
-            try
-            {
-                webDriver.Close();
-            }
-            catch { }
-        }
-
-        private void TearDownCleanDownloadPath()
-        {
-            Console.WriteLine("TearDown: Clean download path");
-            string filePath = $@"{downloadPath}\";
-            var files = new DirectoryInfo(filePath).GetFiles();
-            int filesCount = files.Length;
-
-            if (filesCount != 0)
-            {
-                foreach (FileInfo file in files)
-                {
-                    Console.WriteLine($"TearDown: Delete file: '{file.ToString()}'");
-                    File.Delete(filePath + file.Name);
-                }
             }
         }
 
@@ -142,6 +107,59 @@ namespace SeleniumAndSpecflowTests.Base
             {
                 Console.WriteLine($"Screenshot: Taking screenshot: '{screenshotFilePath}'");
                 screenshot.SaveAsFile(screenshotFilePath, imageFormat);
+            }
+        }
+
+        protected void TearDownCleanUp()
+        {
+            Console.WriteLine("TearDown: Delete Cookies");
+            try
+            {
+                webDriver.Manage().Cookies.DeleteAllCookies();
+            }
+            catch { }
+
+            Console.WriteLine("TearDown: Close browser");
+            try
+            {
+                webDriver.Close();
+            }
+            catch { }
+        }
+
+        private void TearDownCleanDownloadPath()
+        {
+            Console.WriteLine("TearDown: Clean download path");
+            string filePath = $@"{downloadPath}\";
+            var files = new DirectoryInfo(filePath).GetFiles();
+            int filesCount = files.Length;
+
+            if (filesCount != 0)
+            {
+                foreach (FileInfo file in files)
+                {
+                    Console.WriteLine($"TearDown: Delete file: '{file.ToString()}'");
+                    File.Delete(filePath + file.Name);
+                }
+            }
+        }
+
+        protected void TearDownRemoveAllScreenshots()
+        {
+            string screenshotPath = $@"{downloadPath}\Screenshots\";
+            
+            if (Directory.Exists(screenshotPath))
+            {
+                var screenshots = new DirectoryInfo(screenshotPath).GetFiles();
+
+                if (screenshots.Length != 0)
+                {
+                    foreach (FileInfo screenshot in screenshots)
+                    {
+                        Console.WriteLine(@$"TearDown: Delete screenshot: '{screenshotPath}{screenshot.Name}'");
+                        File.Delete(screenshotPath + screenshot.Name);
+                    }
+                }
             }
         }
     }
