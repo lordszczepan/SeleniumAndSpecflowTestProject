@@ -50,6 +50,12 @@ namespace SeleniumAndSpecflowPageModel.Base
             Element?.ScrollTo();
         }
 
+        public override void MoveCursorOver()
+        {
+            Console.WriteLine($"Move Cursor Over Element: '{By.ToString()}'");
+            Element?.MoveCursorOver();
+        }
+
         public override Element FindElement(By locator)
         {
             Console.WriteLine($"Find Element with locator = {locator.ToString()}");
@@ -67,5 +73,7 @@ namespace SeleniumAndSpecflowPageModel.Base
             Console.WriteLine($"Type Text = {text}");
             Element?.TypeText(text);
         }
+
+        
     }
 }

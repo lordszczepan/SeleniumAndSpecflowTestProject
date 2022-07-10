@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumAndSpecflowPageModel.Base
@@ -37,6 +38,12 @@ namespace SeleniumAndSpecflowPageModel.Base
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)webDriver;
             js.ExecuteScript("arguments[0].scrollIntoView(true);", webElement.FindElement(By));
+        }
+
+        public override void MoveCursorOver()
+        {
+            Actions action = new Actions(webDriver);
+            action.MoveToElement(webElement).Release().Build().Perform();
         }
 
         public override Element FindElement(By locator)

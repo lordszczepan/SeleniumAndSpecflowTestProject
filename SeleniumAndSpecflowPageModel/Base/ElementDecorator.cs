@@ -29,6 +29,11 @@ namespace SeleniumAndSpecflowPageModel.Base
             Element?.ScrollTo();
         }
 
+        public override void MoveCursorOver()
+        {
+            Element?.MoveCursorOver();
+        }
+
         public override string GetAttribute(string attributeName)
         {
             return Element?.GetAttribute(attributeName);
