@@ -2,9 +2,6 @@
 using SeleniumAndSpecflowPageModel.Wikipedia;
 using SeleniumAndSpecflowTests.Base;
 using SeleniumAndSpecflowTests.JsonSettings;
-using System;
-using System.IO;
-using System.Reflection;
 using TechTalk.SpecFlow;
 
 namespace SeleniumAndSpecflowTests.Wikipedia

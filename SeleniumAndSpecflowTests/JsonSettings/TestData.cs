@@ -8,6 +8,7 @@ namespace SeleniumAndSpecflowTests.JsonSettings
     {
         public static class JsonSettings
         {
+            public const string GoogleSettings = "JsonSettings\\GoogleSettings.json";
             public const string WikipediaSettings = "JsonSettings\\WikipediaSettings.json";
         }
     }
