@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using SeleniumAndSpecflowPageModel.Google;
 using SeleniumAndSpecflowTests.Base;
 using SeleniumAndSpecflowTests.JsonSettings;
 using TechTalk.SpecFlow;
@@ -17,19 +18,22 @@ namespace SeleniumAndSpecflowTests.Google
         [Given(@"Main Google Page is presented")]
         public void GivenMainGooglePageIsPresented()
         {
-            ScenarioContext.Current.Pending();
+            var googleMainPage = new GoogleMainPage(webDriver);
+            Assert.IsTrue(googleMainPage.IsLoaded());
         }
         
         [When(@"(.*) is entered")]
-        public void WhenIsEntered(string p0)
+        public void WhenIsEntered(string searchPhrase)
         {
-            ScenarioContext.Current.Pending();
+            var googleMainPage = new GoogleMainPage(webDriver);
+            googleMainPage.SearchForPhrase(searchPhrase);
         }
         
         [Then(@"Results for (.*) on Google Results page should be displayed")]
-        public void ThenResultsForOnGoogleResultsPageShouldBeDisplayed(string p0)
+        public void ThenResultsForOnGoogleResultsPageShouldBeDisplayed(string searchPhrase)
         {
-            ScenarioContext.Current.Pending();
+            var googleSearchResultsPage = new GoogleSearchResultsPage(webDriver);
+            Assert.AreEqual(searchPhrase, googleSearchResultsPage.ReturnSearchTextBoxValue());
         }
     }
 }

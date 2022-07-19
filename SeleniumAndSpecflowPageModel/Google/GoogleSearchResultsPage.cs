@@ -16,9 +16,16 @@ namespace SeleniumAndSpecflowPageModel.Google
 
         private Element pnlSearchResults => driver.FindElement(By.ClassName(pnlSearchResultsClass));
 
+        private Element txtSearch => driver.FindElement(By.XPath("//*[@id='tsf']/div[1]//input"));
+
         public override bool IsLoaded()
         {
             return IsElementDisplayed(pnlSearchResults);
+        }
+
+        public string ReturnSearchTextBoxValue()
+        {
+            return txtSearch.GetAttribute("value");
         }
     }
 }

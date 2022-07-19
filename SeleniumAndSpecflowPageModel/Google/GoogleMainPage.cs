@@ -15,13 +15,23 @@ namespace SeleniumAndSpecflowPageModel.Google
 
         public GoogleSidebar Sidebar { get; }
 
-        private Element txtSearch => driver.FindElement(By.ClassName("gLFyf gsfi"));
+        private Element txtSearch => driver.FindElement(By.XPath("//input[@class='gLFyf gsfi']"));
 
         private Element btnSearch => driver.FindElement(By.XPath("//div[@class='FPdoLc lJ9FBc']//input[@class='gNO89b']"));
 
         public override bool IsLoaded()
         {
             return IsElementDisplayed(txtSearch);
+        }
+
+        public GoogleSearchResultsPage SearchForPhrase(string searchPhrase)
+        {
+            txtSearch.TypeText(searchPhrase);
+
+            btnSearch.Click();
+            WaitForAjax();
+
+            return new GoogleSearchResultsPage(webDriver);
         }
     }
 }

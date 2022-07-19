@@ -9,7 +9,7 @@ namespace SeleniumAndSpecflowTests.Wikipedia
     [Binding]
     public class WikipediaMainPageViewSteps : SpecFlowTestsBase
     {
-        private static TestsSettings wikipediaSettings = new TestsSettings(TestData.JsonSettings.WikipediaSettings);   
+        private static TestsSettings wikipediaSettings = new TestsSettings(TestData.JsonSettings.WikipediaSettings);
 
         public WikipediaMainPageViewSteps() : base(wikipediaSettings)
         {
