@@ -1,0 +1,10 @@
+{
+  "Settings": {
+    "Browser": "Chrome",
+    "Url": "https://www.google.pl",
+    "HeadlessMode": false,
+    "FullscreenMode": false,
+    "ImplicitWait": 10,
+    "DownloadPath": "C:\\Downloads\\Google"
+  }
+}

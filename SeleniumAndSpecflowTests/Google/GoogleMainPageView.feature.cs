@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace SeleniumAndSpecflowTests.Wikipedia
+namespace SeleniumAndSpecflowTests.Google
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,23 +20,23 @@ namespace SeleniumAndSpecflowTests.Wikipedia
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("WikipediaMainPageView")]
-    public partial class WikipediaMainPageViewFeature
+    [NUnit.Framework.DescriptionAttribute("GoogleMainPageView")]
+    public partial class GoogleMainPageViewFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "WikipediaMainPageView.feature"
+#line 1 "GoogleMainPageView.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Wikipedia", "WikipediaMainPageView", "\tExperimental Feature to check possibilities of merging Selenium POM and Specflow" +
-                    " tests, tests done on Wikipedia", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Google", "GoogleMainPageView", "\tExperimental Feature to check possibilities of merging Selenium POM and Specflow" +
+                    " tests, tests done on Google", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,14 +75,22 @@ namespace SeleniumAndSpecflowTests.Wikipedia
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Should enter Polish Wikipedia Main Page")]
-        [NUnit.Framework.CategoryAttribute("wikipedia")]
-        public void ShouldEnterPolishWikipediaMainPage()
+        [NUnit.Framework.DescriptionAttribute("Should search for result on Main Google page")]
+        [NUnit.Framework.CategoryAttribute("google")]
+        [NUnit.Framework.TestCaseAttribute("Star Wars", null)]
+        [NUnit.Framework.TestCaseAttribute("Skyrim", null)]
+        public void ShouldSearchForResultOnMainGooglePage(string searchPhrase, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "wikipedia"};
+            string[] @__tags = new string[] {
+                    "google"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Should enter Polish Wikipedia Main Page", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("search phrase", searchPhrase);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Should search for result on Main Google page", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -94,13 +102,13 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 6
- testRunner.Given("Welcome Wikipedia Page is presented", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("Main Google Page is presented", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 7
- testRunner.When("Polish Version of Wikipedia will be selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("{0} is entered", searchPhrase), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
- testRunner.Then("Wikipedia in polish language will be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("Results for {0} on Google Results page should be displayed", searchPhrase), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
