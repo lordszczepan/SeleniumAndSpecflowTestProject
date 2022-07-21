@@ -7,11 +7,23 @@ using TechTalk.SpecFlow;
 namespace SeleniumAndSpecflowTests.Wikipedia
 {
     [Binding]
-    public class WikipediaMainPageViewSteps : SpecFlowTestsBase
+    public class WikipediaMainPageViewSteps : SpecFlowHooks
     {
-        private static TestsSettings wikipediaSettings = new TestsSettings(TestData.JsonSettings.WikipediaSettings);
+        private static TestsSettings settings = new TestsSettings(TestData.JsonSettings.WikipediaSettings);
 
-        public WikipediaMainPageViewSteps() : base(wikipediaSettings)
+        [BeforeScenario("@wikipedia")]
+        public void BeforeWikipediaScenario()
+        {
+            SetUp(settings);
+        }
+
+        [AfterScenario("@wikipedia")]
+        public void AfterScenario()
+        {
+            CleanUp();
+        }
+
+        public WikipediaMainPageViewSteps() : base(settings)
         {
         }
 

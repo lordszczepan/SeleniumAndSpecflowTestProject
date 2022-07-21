@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SeleniumAndSpecflowPageModel.Base;
+using SeleniumAndSpecflowPageModel.Google.Modals;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,12 @@ namespace SeleniumAndSpecflowPageModel.Google
         public GoogleMainPage(IWebDriver webDriver) : base(webDriver)
         {
             Sidebar = new GoogleSidebar(webDriver);
+
+            var cookiesPopup = new GoogleCookiesModal(webDriver);
+            if (cookiesPopup.IsLoaded())
+            {
+                cookiesPopup.AcceptAllCookies();
+            }
         }
 
         public GoogleSidebar Sidebar { get; }
@@ -18,6 +25,8 @@ namespace SeleniumAndSpecflowPageModel.Google
         private Element txtSearch => driver.FindElement(By.XPath("//input[@class='gLFyf gsfi']"));
 
         private Element btnSearch => driver.FindElement(By.XPath("//div[@class='FPdoLc lJ9FBc']//input[@class='gNO89b']"));
+
+        private Element btnSearchDropDownArea => driver.FindElement(By.XPath("//div[@class='aajZCb']//input[@class='gNO89b']"));
 
         public override bool IsLoaded()
         {
@@ -28,8 +37,8 @@ namespace SeleniumAndSpecflowPageModel.Google
         {
             txtSearch.TypeText(searchPhrase);
 
-            btnSearch.Click();
-            WaitForAjax();
+            btnSearchDropDownArea.Click();
+            WaitUntilPageLoadsCompletely();
 
             return new GoogleSearchResultsPage(webDriver);
         }
