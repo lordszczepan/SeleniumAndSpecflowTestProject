@@ -38,7 +38,7 @@ namespace SeleniumAndSpecflowTests.Wikipedia
         public void WhenPolishVersionOfWikipediaWillBeSelected()
         {
             var wikiWelcomePage = new WikipediaWelcomePage(webDriver);
-            wikiWelcomePage.GoToPolishWikipedia();
+            wikiWelcomePage.GoToPolishWikipediaByAllLanguages();
         }
 
         [Then(@"Wikipedia in polish language will be displayed")]
