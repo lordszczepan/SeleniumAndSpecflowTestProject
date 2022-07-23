@@ -11,20 +11,20 @@ namespace SeleniumAndSpecflowTests.Wikipedia
     {
         private static TestsSettings settings = new TestsSettings(TestData.JsonSettings.WikipediaSettings);
 
+        public WikipediaMainPageViewSteps() : base(settings)
+        {
+        }
+
         [BeforeScenario("@wikipedia")]
         public void BeforeWikipediaScenario()
         {
-            SetUp(settings);
+            SetUp();
         }
 
         [AfterScenario("@wikipedia")]
         public void AfterScenario()
         {
             CleanUp();
-        }
-
-        public WikipediaMainPageViewSteps() : base(settings)
-        {
         }
 
         [Given(@"Welcome Wikipedia Page is presented")]

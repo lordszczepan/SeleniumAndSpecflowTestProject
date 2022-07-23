@@ -10,11 +10,15 @@ namespace SeleniumAndSpecflowTests.Google
     public class GoogleMainPageViewSteps : SpecFlowHooks
     {
         private static TestsSettings settings = new TestsSettings(TestData.JsonSettings.GoogleSettings);
-        
+
+        public GoogleMainPageViewSteps() : base(settings)
+        {
+        }
+
         [BeforeScenario("@google")]
         public void BeforeGoogleScenario()
         {
-            SetUp(settings);
+            SetUp();
         }
 
         [AfterScenario("@google")]
@@ -23,9 +27,6 @@ namespace SeleniumAndSpecflowTests.Google
             CleanUp();
         }
 
-        public GoogleMainPageViewSteps() : base(settings)
-        {
-        }
 
         [Given(@"Main Google Page is presented")]
         public void GivenMainGooglePageIsPresented()
