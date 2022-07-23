@@ -22,6 +22,8 @@ namespace SeleniumAndSpecflowPageModel.Google
 
         public GoogleSidebar Sidebar { get; }
 
+        private Element imgLogo => driver.FindElement(By.XPath("//div[@class='k1zIA rSk4se']/img[@class='lnXdpd']"));
+
         private Element txtSearch => driver.FindElement(By.XPath("//input[@class='gLFyf gsfi']"));
 
         private Element btnSearch => driver.FindElement(By.XPath("//div[@class='FPdoLc lJ9FBc']//input[@class='gNO89b']"));
@@ -30,7 +32,7 @@ namespace SeleniumAndSpecflowPageModel.Google
 
         public override bool IsLoaded()
         {
-            return IsElementDisplayed(txtSearch);
+            return IsElementDisplayed(imgLogo);
         }
 
         public GoogleSearchResultsPage SearchForPhrase(string searchPhrase)
