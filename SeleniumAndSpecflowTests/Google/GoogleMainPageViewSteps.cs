@@ -7,13 +7,26 @@ using TechTalk.SpecFlow;
 namespace SeleniumAndSpecflowTests.Google
 {
     [Binding]
-    public class GoogleMainPageViewSteps : SpecFlowTestsBase
+    public class GoogleMainPageViewSteps : SpecFlowHooks
     {
-        private static TestsSettings googleSettings = new TestsSettings(TestData.JsonSettings.GoogleSettings);
+        private static TestsSettings settings = new TestsSettings(TestData.JsonSettings.GoogleSettings);
 
-        public GoogleMainPageViewSteps() : base(googleSettings)
+        public GoogleMainPageViewSteps() : base(settings)
         {
         }
+
+        [BeforeScenario("@google")]
+        public void BeforeGoogleScenario()
+        {
+            SetUp();
+        }
+
+        [AfterScenario("@google")]
+        public void AfterScenario()
+        {
+            CleanUp();
+        }
+
 
         [Given(@"Main Google Page is presented")]
         public void GivenMainGooglePageIsPresented()
@@ -21,14 +34,14 @@ namespace SeleniumAndSpecflowTests.Google
             var googleMainPage = new GoogleMainPage(webDriver);
             Assert.IsTrue(googleMainPage.IsLoaded());
         }
-        
+
         [When(@"(.*) is entered")]
         public void WhenIsEntered(string searchPhrase)
         {
             var googleMainPage = new GoogleMainPage(webDriver);
             googleMainPage.SearchForPhrase(searchPhrase);
         }
-        
+
         [Then(@"Results for (.*) on Google Results page should be displayed")]
         public void ThenResultsForOnGoogleResultsPageShouldBeDisplayed(string searchPhrase)
         {

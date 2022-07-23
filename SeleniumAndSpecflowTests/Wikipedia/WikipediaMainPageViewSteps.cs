@@ -7,12 +7,24 @@ using TechTalk.SpecFlow;
 namespace SeleniumAndSpecflowTests.Wikipedia
 {
     [Binding]
-    public class WikipediaMainPageViewSteps : SpecFlowTestsBase
+    public class WikipediaMainPageViewSteps : SpecFlowHooks
     {
-        private static TestsSettings wikipediaSettings = new TestsSettings(TestData.JsonSettings.WikipediaSettings);
+        private static TestsSettings settings = new TestsSettings(TestData.JsonSettings.WikipediaSettings);
 
-        public WikipediaMainPageViewSteps() : base(wikipediaSettings)
+        public WikipediaMainPageViewSteps() : base(settings)
         {
+        }
+
+        [BeforeScenario("@wikipedia")]
+        public void BeforeWikipediaScenario()
+        {
+            SetUp();
+        }
+
+        [AfterScenario("@wikipedia")]
+        public void AfterScenario()
+        {
+            CleanUp();
         }
 
         [Given(@"Welcome Wikipedia Page is presented")]

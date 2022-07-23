@@ -27,7 +27,6 @@ namespace SeleniumAndSpecflowTests.Base
             this.downloadPath = settings.DownloadPath;
         }
 
-        [SetUp]
         protected void SetUp()
         {
             webDriver = new WebDriverBuilder()
@@ -41,7 +40,6 @@ namespace SeleniumAndSpecflowTests.Base
             PrepareDownloadFolder();
         }
 
-        [TearDown]
         protected void CleanUp()
         {
             TearDownRemoveAllScreenshots();
