@@ -35,11 +35,33 @@ namespace SeleniumAndSpecflowTests.Google
             Assert.IsTrue(googleMainPage.IsLoaded());
         }
 
-        [When(@"(.*) is entered")]
+        [When(@"Search (.*) is entered")]
         public void WhenIsEntered(string searchPhrase)
         {
             var googleMainPage = new GoogleMainPage(webDriver);
             googleMainPage.SearchForPhrase(searchPhrase);
+        }
+
+        [When(@"Switched to Image Search page")]
+        public void WhenSwitchedToImageSearchPage()
+        {
+            var googleMainPage = new GoogleMainPage(webDriver);
+            var googleMainImagesPage = googleMainPage.Sidebar.GoToImages();
+            Assert.IsTrue(googleMainImagesPage.IsLoaded());
+        }
+
+        [When(@"Image path is entered")]
+        public void WhenImagePathIsEntered()
+        {
+            var googleMainImagesPage = new GoogleMainImagesPage(webDriver);
+            var googleSearchImageResultsPage = googleMainImagesPage.SearchByImagePath("C:\\Files\\Images\\Test1#.jpg");
+        }
+
+        [Then(@"Results for Image on Google Search Image Results page should be displayed")]
+        public void ThenResultsForImageOnGoogleSearchImageResultsPageShouldBeDisplayed()
+        {
+            var googleSearchImageResultsPage = new GoogleSearchImageResultsPage(webDriver);
+            Assert.IsTrue(googleSearchImageResultsPage.IsLoaded());
         }
 
         [Then(@"Results for (.*) on Google Results page should be displayed")]

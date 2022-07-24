@@ -4,9 +4,17 @@
 	@google
 Scenario: Should search for result on Main Google page
 	Given Main Google Page is presented
-	When <search phrase> is entered
-	Then Results for <search phrase> on Google Results page should be displayed
+	When Search <phrase> is entered
+	Then Results for <phrase> on Google Results page should be displayed
 	Examples: 
-	| search phrase |
+	| phrase		|
 	| Star Wars     |
 	| Skyrim        |
+
+	@google
+Scenario: Should search for image on Google page
+	Given Main Google Page is presented
+	When Switched to Image Search page
+	When Image path is entered
+	Then Results for Image on Google Search Image Results page should be displayed
+ 

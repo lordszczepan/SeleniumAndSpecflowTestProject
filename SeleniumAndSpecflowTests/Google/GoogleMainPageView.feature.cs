@@ -79,7 +79,7 @@ namespace SeleniumAndSpecflowTests.Google
         [NUnit.Framework.CategoryAttribute("google")]
         [NUnit.Framework.TestCaseAttribute("Star Wars", null)]
         [NUnit.Framework.TestCaseAttribute("Skyrim", null)]
-        public void ShouldSearchForResultOnMainGooglePage(string searchPhrase, string[] exampleTags)
+        public void ShouldSearchForResultOnMainGooglePage(string phrase, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "google"};
@@ -89,7 +89,7 @@ namespace SeleniumAndSpecflowTests.Google
             }
             string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("search phrase", searchPhrase);
+            argumentsOfScenario.Add("phrase", phrase);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Should search for result on Main Google page", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 5
 this.ScenarioInitialize(scenarioInfo);
@@ -105,10 +105,45 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("Main Google Page is presented", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 7
- testRunner.When(string.Format("{0} is entered", searchPhrase), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("Search {0} is entered", phrase), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
- testRunner.Then(string.Format("Results for {0} on Google Results page should be displayed", searchPhrase), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("Results for {0} on Google Results page should be displayed", phrase), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Should search for image on Google page")]
+        [NUnit.Framework.CategoryAttribute("google")]
+        public void ShouldSearchForImageOnGooglePage()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "google"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Should search for image on Google page", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 15
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 16
+ testRunner.Given("Main Google Page is presented", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 17
+ testRunner.When("Switched to Image Search page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 18
+ testRunner.When("Image path is entered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 19
+ testRunner.Then("Results for Image on Google Search Image Results page should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -23,10 +23,12 @@ namespace SeleniumAndSpecflowPageModel.Google
             return IsElementDisplayed(sidebar);
         }
 
-        public void GoToImages()
+        public GoogleMainImagesPage GoToImages()
         {
             btnImages.Click();
             WaitUntilPageLoadsCompletely();
+
+            return new GoogleMainImagesPage(webDriver);
         }
     }
 }
