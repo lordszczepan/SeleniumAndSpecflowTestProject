@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.Gherkin.Model;
+using AventStack.ExtentReports.Reporter;
+using NUnit.Framework;
 using SeleniumAndSpecflowPageModel.Wikipedia;
 using SeleniumAndSpecflowTests.Base;
 using SeleniumAndSpecflowTests.JsonSettings;
