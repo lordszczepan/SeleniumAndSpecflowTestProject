@@ -15,9 +15,11 @@ namespace SeleniumAndSpecflowTests.Base
     [Binding]
     public class SpecFlowHooks : TestsBase
     {
-        private static ExtentTest featureName;
+
+        private static AventStack.ExtentReports.ExtentReports extent;
+        private static ExtentTest feature;
         private static ExtentTest scenario;
-        private static ExtentReports extent;
+        private static ExtentTest step;
 
         public SpecFlowHooks(TestsSettings settings) : base(settings)
         {
@@ -26,12 +28,12 @@ namespace SeleniumAndSpecflowTests.Base
         [BeforeTestRun]
         public static void SetUpReport()
         {
-            var htmlReporter = new ExtentHtmlReporter("C:\\Reports\\SpecflowTests.html");
+            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("C:\\Reports\\SpecflowTests.html");
 
             htmlReporter.Config.ReportName = "SpecflowTests2";
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
 
-            extent = new ExtentReports();
+            extent = new AventStack.ExtentReports.ExtentReports();
             extent.AttachReporter(htmlReporter);
         }
 
@@ -41,17 +43,42 @@ namespace SeleniumAndSpecflowTests.Base
             extent.Flush();
         }
 
-        [BeforeFeature]
-        public static void BeforeFeature()
+        //[AfterFeature]
+        public static void AfterFeature()
         {
-            featureName = extent.CreateTest<Feature>(FeatureContext.Current.FeatureInfo.Title);
-            scenario = featureName.CreateNode<Scenario>(ScenarioContext.Current.ScenarioInfo.Title);
+            extent.Flush();
+        }
+
+
+        [BeforeFeature]
+        public static void SetUpReportFeature(FeatureContext context)
+        {
+            feature = extent.CreateTest(context.FeatureInfo.Title);
+        }
+
+        [BeforeScenario]
+        public static void SetUpReportScenario(ScenarioContext context)
+        {
+            scenario = feature.CreateNode(context.ScenarioInfo.Title);
+        }
+
+        [BeforeStep]
+        public static void SetUpReportStep()
+        {
+            step = scenario;
         }
 
         [AfterStep]
-        public static void InsertReportingSteps()
+        public static void TearDownReportStep(ScenarioContext context)
         {
-            scenario.CreateNode<Given>(ScenarioStepContext.Current.StepInfo.Text);
+            if (context.TestError == null)
+            {
+                step.Log(Status.Pass, context.StepContext.StepInfo.Text);
+            }
+            else if (context.TestError != null)
+            {
+                step.Log(Status.Fail, context.StepContext.StepInfo.Text);
+            }
         }
     }
 }
