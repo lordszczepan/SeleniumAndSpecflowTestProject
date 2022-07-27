@@ -9,6 +9,7 @@ using System.IO;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin.Model;
+using SeleniumAndSpecflowTests.Extensions;
 
 namespace SeleniumAndSpecflowTests.Base
 {
@@ -30,20 +31,18 @@ namespace SeleniumAndSpecflowTests.Base
         {
             ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("C:\\Reports\\SpecflowTests.html");
 
-            htmlReporter.Config.ReportName = "SpecflowTests2";
+            var path = new FilePath();
+            string configPath = path.ReturnCombinedFilePathFromCurrentDirectory("extent-config.xml");
+            htmlReporter.LoadConfig(configPath);
+            
+            htmlReporter.Config.ReportName = "SpecflowTests";
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
 
             extent = new AventStack.ExtentReports.ExtentReports();
             extent.AttachReporter(htmlReporter);
         }
 
-        [AfterTestRun]
-        public static void TearDownReport()
-        {
-            extent.Flush();
-        }
-
-        //[AfterFeature]
+        [AfterScenario]
         public static void AfterFeature()
         {
             extent.Flush();
