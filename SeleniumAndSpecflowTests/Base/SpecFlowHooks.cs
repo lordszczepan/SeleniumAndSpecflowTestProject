@@ -1,10 +1,4 @@
-﻿using OpenQA.Selenium;
-using SeleniumAndSpecflowTests.JsonSettings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 using System.IO;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
@@ -64,12 +58,71 @@ namespace SeleniumAndSpecflowTests.Base
         [BeforeStep]
         public static void SetUpReportStep()
         {
+            TearDownRemoveAllScreenshots();
             step = scenario;
         }
 
         [AfterStep]
         public static void TearDownReportStep(ScenarioContext context)
         {
+            var stepType = context.StepContext.StepInfo.StepDefinitionType.ToString();
+            
+            TakeScreenshot();
+
+            ExtentTest node = null;
+
+            if (context.TestError == null)
+            {
+                switch (stepType)
+                {
+                    case "Given":
+                        node = scenario.CreateNode<Given>($"Given: {ScenarioStepContext.Current.StepInfo.Text}");
+                        break;
+                    case "When":
+                        node = scenario.CreateNode<When>($"When: {ScenarioStepContext.Current.StepInfo.Text}");
+                        break;
+                    case "Then":
+                        node = scenario.CreateNode<Then>($"Then: {ScenarioStepContext.Current.StepInfo.Text}");
+                        break;
+                    case "And":
+                        node = scenario.CreateNode<And>($"And: {ScenarioStepContext.Current.StepInfo.Text}");
+                        break;
+                }
+            }
+            else if (context.TestError != null)
+            {
+                switch (stepType)
+                {
+                    case "Given":
+                        node = scenario.CreateNode<Given>($"Given: {ScenarioStepContext.Current.StepInfo.Text}").Fail(context.TestError.InnerException);
+                        break;
+                    case "When":
+                        node = scenario.CreateNode<When>($"When: {ScenarioStepContext.Current.StepInfo.Text}").Fail(context.TestError.InnerException);
+                        break;
+                    case "Then":
+                        node = scenario.CreateNode<Then>($"Then: {ScenarioStepContext.Current.StepInfo.Text}").Fail(context.TestError.InnerException);
+                        break;
+                    case "And":
+                        node = scenario.CreateNode<And>($"And: {ScenarioStepContext.Current.StepInfo.Text}").Fail(context.TestError.InnerException);
+                        break;
+                }
+            }
+
+            string screenshotPath = $@"C:\Screenshots\";
+
+            if (Directory.Exists(screenshotPath))
+            {
+                var screenshots = new DirectoryInfo(screenshotPath).GetFiles();
+
+                if (screenshots.Length != 0)
+                {
+                    foreach (FileInfo screenshot in screenshots)
+                    {
+                        node.Pass("Screenshot ", MediaEntityBuilder.CreateScreenCaptureFromPath($@"{screenshotPath}{screenshot.FullName}").Build());
+                    }
+                }
+            }
+
             if (context.TestError == null)
             {
                 step.Log(Status.Pass, context.StepContext.StepInfo.Text);

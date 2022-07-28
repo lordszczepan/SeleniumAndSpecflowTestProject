@@ -19,7 +19,7 @@ namespace SeleniumAndSpecflowPageModel.Google
                 cookiesPopup.AcceptAllCookies();
             }
         }
-
+        
         public GoogleSidebar Sidebar { get; }
 
         private Element imgLogo => driver.FindElement(By.XPath("//div[@class='k1zIA rSk4se']/img[@class='lnXdpd']"));
@@ -38,7 +38,7 @@ namespace SeleniumAndSpecflowPageModel.Google
         public GoogleSearchResultsPage SearchForPhrase(string searchPhrase)
         {
             txtSearch.TypeText(searchPhrase);
-
+            
             btnSearchDropDownArea.Click();
             WaitUntilPageLoadsCompletely();
 

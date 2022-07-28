@@ -9,7 +9,7 @@ namespace SeleniumAndSpecflowTests.Base
 {
     public abstract class TestsBase
     {
-        protected IWebDriver webDriver;
+        protected static IWebDriver webDriver;
         private readonly Browser browser; 
         private readonly string url;
         private readonly bool headlessMode;
@@ -62,9 +62,9 @@ namespace SeleniumAndSpecflowTests.Base
             }
         }
 
-        protected void TakeScreenshot(ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png, int fileNr = 1)
+        public static void TakeScreenshot(ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png, int fileNr = 1)
         {
-            string screenshotPath = $@"{downloadPath}\Screenshots";
+            string screenshotPath = $@"C:\Screenshots";
             string screenshotName = "Screenshot";
             string imageExtension = "";
             switch (imageFormat)
@@ -142,9 +142,9 @@ namespace SeleniumAndSpecflowTests.Base
             }
         }
 
-        protected void TearDownRemoveAllScreenshots()
+        protected static void TearDownRemoveAllScreenshots()
         {
-            string screenshotPath = $@"{downloadPath}\Screenshots\";
+            string screenshotPath = $@"C:\Screenshots\";
             
             if (Directory.Exists(screenshotPath))
             {
