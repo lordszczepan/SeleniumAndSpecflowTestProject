@@ -42,7 +42,6 @@ namespace SeleniumAndSpecflowTests.Base
 
         protected void CleanUp()
         {
-            TearDownRemoveAllScreenshots();
             TearDownCleanDownloadPath();
             TearDownCleanUp();
         }
@@ -62,9 +61,9 @@ namespace SeleniumAndSpecflowTests.Base
             }
         }
 
-        public static void TakeScreenshot(ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png, int fileNr = 1)
+        public static string TakeScreenshot(ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png, int fileNr = 1)
         {
-            string screenshotPath = $@"C:\Screenshots";
+            string screenshotPath = $@"C:\Reports\Screenshots";
             string screenshotName = "Screenshot";
             string imageExtension = "";
             switch (imageFormat)
@@ -83,6 +82,7 @@ namespace SeleniumAndSpecflowTests.Base
                 case ScreenshotImageFormat.Png:
                     imageExtension = "png";
                     break;
+
                 case ScreenshotImageFormat.Tiff:
                     imageExtension = "tiff";
                     break;
@@ -99,12 +99,14 @@ namespace SeleniumAndSpecflowTests.Base
 
             if (File.Exists(screenshotFilePath))
             {
-                TakeScreenshot(imageFormat, fileNr + 1);
+                return TakeScreenshot(imageFormat, fileNr + 1);
             }
             else
             {
                 Console.WriteLine($"Screenshot: Taking screenshot: '{screenshotFilePath}'");
                 screenshot.SaveAsFile(screenshotFilePath, imageFormat);
+
+                return screenshotFilePath;
             }
         }
 
@@ -144,8 +146,8 @@ namespace SeleniumAndSpecflowTests.Base
 
         protected static void TearDownRemoveAllScreenshots()
         {
-            string screenshotPath = $@"C:\Screenshots\";
-            
+            string screenshotPath = $@"C:\Reports\Screenshots\";
+
             if (Directory.Exists(screenshotPath))
             {
                 var screenshots = new DirectoryInfo(screenshotPath).GetFiles();

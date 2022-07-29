@@ -23,17 +23,23 @@ namespace SeleniumAndSpecflowTests.Base
         [BeforeTestRun]
         public static void SetUpReport()
         {
-            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("C:\\Reports\\SpecflowTests.html");
+            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(@"C:\Reports\SeleniumAndSpecflowTests.html");
 
             var path = new FilePath();
             string configPath = path.ReturnCombinedFilePathFromCurrentDirectory("extent-config.xml");
             htmlReporter.LoadConfig(configPath);
             
-            htmlReporter.Config.ReportName = "SpecflowTests";
+            htmlReporter.Config.ReportName = "Selenium And Specflow Tests";
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
 
             extent = new AventStack.ExtentReports.ExtentReports();
             extent.AttachReporter(htmlReporter);
+        }
+
+        [BeforeTestRun]
+        public static void SetUpRemoveOldScreenshots()
+        {
+            TearDownRemoveAllScreenshots();
         }
 
         [AfterScenario]
@@ -58,7 +64,6 @@ namespace SeleniumAndSpecflowTests.Base
         [BeforeStep]
         public static void SetUpReportStep()
         {
-            TearDownRemoveAllScreenshots();
             step = scenario;
         }
 
@@ -67,7 +72,7 @@ namespace SeleniumAndSpecflowTests.Base
         {
             var stepType = context.StepContext.StepInfo.StepDefinitionType.ToString();
             
-            TakeScreenshot();
+            string screenshotPath = TakeScreenshot();
 
             ExtentTest node = null;
 
@@ -108,20 +113,7 @@ namespace SeleniumAndSpecflowTests.Base
                 }
             }
 
-            string screenshotPath = $@"C:\Screenshots\";
-
-            if (Directory.Exists(screenshotPath))
-            {
-                var screenshots = new DirectoryInfo(screenshotPath).GetFiles();
-
-                if (screenshots.Length != 0)
-                {
-                    foreach (FileInfo screenshot in screenshots)
-                    {
-                        node.Pass("Screenshot ", MediaEntityBuilder.CreateScreenCaptureFromPath($@"{screenshotPath}{screenshot.FullName}").Build());
-                    }
-                }
-            }
+            node.Pass("Screenshot ", MediaEntityBuilder.CreateScreenCaptureFromPath($@"{screenshotPath}").Build());
 
             if (context.TestError == null)
             {
