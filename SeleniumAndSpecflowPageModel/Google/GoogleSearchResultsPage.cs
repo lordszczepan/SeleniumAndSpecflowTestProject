@@ -31,7 +31,9 @@ namespace SeleniumAndSpecflowPageModel.Google
 
         public WikipediaArticlePage EnterWikipediaArticleBySearchResult(string searchResult)
         {
-            driver.FindElement(By.XPath($"//*[@id='rso']/div/div/div/div/a[div/cite[contains(text(),'wikipedia.org')]][h3[contains(text(),'{searchResult}')]]")).Click();
+            Element wikiArticle = driver.FindElement(By.XPath($"//*[@id='rso']/div/div/div/div/a[div/cite[contains(text(),'wikipedia.org')]][h3[contains(text(),'{searchResult}')]]"));
+            wikiArticle.ScrollTo();
+            wikiArticle.Click();
             WaitForAjax();
 
             return new WikipediaArticlePage(webDriver);

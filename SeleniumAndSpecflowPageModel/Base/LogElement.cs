@@ -68,6 +68,12 @@ namespace SeleniumAndSpecflowPageModel.Base
             return Element?.GetAttribute(attributeName);
         }
 
+        public override string GetTextAttribute()
+        {
+            Console.WriteLine($"Get Element's '{By.ToString()}' Text Attribute");
+            return Element?.GetTextAttribute();
+        }
+
         public override void TypeText(string text)
         {
             Console.WriteLine($"Type Text = {text}");

@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using System;
 
 namespace SeleniumAndSpecflowPageModel.Base
 {
@@ -14,5 +15,6 @@ namespace SeleniumAndSpecflowPageModel.Base
         public abstract void ScrollTo();
         public abstract void MoveCursorOver();
         public abstract string GetAttribute(string attributeName);
+        public abstract string GetTextAttribute();
     }
 }

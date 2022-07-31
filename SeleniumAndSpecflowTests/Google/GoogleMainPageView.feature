@@ -18,3 +18,12 @@ Scenario: Should search for image on Google page
 	When Image path is entered
 	Then Results for Image on Google Search Image Results page should be displayed
  
+	@google
+Scenario: Should search for result on Main Google page and enter Wikipedia Article
+	Given Main Google Page is presented
+	When Search <phrase> is entered
+	And On Search Results list Wikipedia Article for <phrase> is selected
+	Then Wikipedia Article for <phrase> is displayed
+	Examples: 
+	| phrase		|
+	| Skyrim        |

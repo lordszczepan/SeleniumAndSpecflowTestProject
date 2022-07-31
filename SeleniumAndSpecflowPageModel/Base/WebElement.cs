@@ -75,5 +75,10 @@ namespace SeleniumAndSpecflowPageModel.Base
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(seconds));
             wait.Until(wd => js.ExecuteScript("return jQuery.active").ToString() == "0");
         }
+
+        public override string GetTextAttribute()
+        {
+            return webElement?.GetAttribute("textContent");
+        }
     }
 }
