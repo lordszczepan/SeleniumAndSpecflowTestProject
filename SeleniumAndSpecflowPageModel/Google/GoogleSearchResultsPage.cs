@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SeleniumAndSpecflowPageModel.Base;
+using SeleniumAndSpecflowPageModel.Wikipedia;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,6 +27,14 @@ namespace SeleniumAndSpecflowPageModel.Google
         public string ReturnSearchTextBoxValue()
         {
             return txtSearch.GetAttribute("value");
+        }
+
+        public WikipediaArticlePage EnterWikipediaArticleBySearchResult(string searchResult)
+        {
+            driver.FindElement(By.XPath($"//*[@id='rso']/div/div/div/div/a[div/cite[contains(text(),'wikipedia.org')]][h3[contains(text(),'{searchResult}')]]")).Click();
+            WaitForAjax();
+
+            return new WikipediaArticlePage(webDriver);
         }
     }
 }
