@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using SeleniumAndSpecflowPageModel.Google;
+using SeleniumAndSpecflowPageModel.Wikipedia;
 using SeleniumAndSpecflowTests.Base;
 using SeleniumAndSpecflowTests.JsonSettings;
 using TechTalk.SpecFlow;
@@ -57,6 +58,13 @@ namespace SeleniumAndSpecflowTests.Google
             var googleSearchImageResultsPage = googleMainImagesPage.SearchByImagePath("C:\\Files\\Images\\Test1#.jpg");
         }
 
+        [When(@"On Search Results list Wikipedia Article for (.*) is selected")]
+        public void WhenOnSearchResultsListWikipediaArticleForIsSelected(string searchPhrase)
+        {
+            var googleSearchResultsPage = new GoogleSearchResultsPage(webDriver);
+            var wikipediaArticlePage = googleSearchResultsPage.EnterWikipediaArticleBySearchResult(searchPhrase);
+        }
+
         [Then(@"Results for Image on Google Search Image Results page should be displayed")]
         public void ThenResultsForImageOnGoogleSearchImageResultsPageShouldBeDisplayed()
         {
@@ -69,6 +77,14 @@ namespace SeleniumAndSpecflowTests.Google
         {
             var googleSearchResultsPage = new GoogleSearchResultsPage(webDriver);
             Assert.AreEqual(searchPhrase, googleSearchResultsPage.ReturnSearchTextBoxValue());
+        }
+
+        [Then(@"Wikipedia Article for (.*) is displayed")]
+        public void ThenWikipediaArticleForIsDisplayed(string searchPhrase)
+        {
+            var wikipediaArticlePage = new WikipediaArticlePage(webDriver);
+            Assert.IsTrue(wikipediaArticlePage.IsLoaded());
+            Assert.IsTrue(wikipediaArticlePage.ReturnArticleHeader().Contains(searchPhrase));
         }
     }
 }

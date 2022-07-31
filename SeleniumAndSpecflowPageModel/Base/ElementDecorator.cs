@@ -39,6 +39,11 @@ namespace SeleniumAndSpecflowPageModel.Base
             return Element?.GetAttribute(attributeName);
         }
 
+        public override string GetTextAttribute()
+        {
+            return Element?.GetTextAttribute();
+        }
+
         public override void TypeText(string text)
         {
             Element?.TypeText(text);
