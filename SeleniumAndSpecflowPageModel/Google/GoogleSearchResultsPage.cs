@@ -3,6 +3,7 @@ using SeleniumAndSpecflowPageModel.Base;
 using SeleniumAndSpecflowPageModel.Wikipedia;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SeleniumAndSpecflowPageModel.Google
@@ -29,9 +30,20 @@ namespace SeleniumAndSpecflowPageModel.Google
             return txtSearch.GetAttribute("value");
         }
 
+        public List<string> ReturnAllDisplayedUrlsForSearchResult()
+        {
+            return driver.FindElements(By.XPath($"//*[@id='rso']//div[@class='g Ww4FFb tF2Cxc']//a[div/cite]")).Select(x => x.GetAttribute("href")).ToList();
+        }
+
+        public int ReturnWikipediaArticlePosition()
+        {
+            var allResults = ReturnAllDisplayedUrlsForSearchResult();
+            return allResults.FindIndex(x => x.Contains("wikipedia.org"));
+        }
+
         public WikipediaArticlePage EnterWikipediaArticleBySearchResult(string searchResult)
         {
-            Element wikiArticle = driver.FindElement(By.XPath($"//*[@id='rso']/div/div/div/div/a[div/cite[contains(text(),'wikipedia.org')]][h3[contains(text(),'{searchResult}')]]"));
+            Element wikiArticle = driver.FindElement(By.XPath($"//*[@id='rso']//div[@class='g Ww4FFb tF2Cxc']//a[div/cite[contains(text(),'wikipedia.org')]][h3[contains(text(),'{searchResult}')]]"));
             wikiArticle.ScrollTo();
             wikiArticle.Click();
             WaitForAjax();

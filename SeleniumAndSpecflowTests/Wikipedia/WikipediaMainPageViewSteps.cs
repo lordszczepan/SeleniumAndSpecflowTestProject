@@ -50,5 +50,13 @@ namespace SeleniumAndSpecflowTests.Wikipedia
             var wikiMainPage = new WikipediaMainPage(webDriver);
             Assert.IsTrue(wikiMainPage.IsLoaded());
         }
+
+        [Then(@"Wikipedia Article for (.*) is displayed")]
+        public void ThenWikipediaArticleForIsDisplayed(string searchPhrase)
+        {
+            var wikipediaArticlePage = new WikipediaArticlePage(webDriver);
+            Assert.IsTrue(wikipediaArticlePage.IsLoaded());
+            Assert.IsTrue(wikipediaArticlePage.ReturnArticleHeader().Contains(searchPhrase));
+        }
     }
 }
