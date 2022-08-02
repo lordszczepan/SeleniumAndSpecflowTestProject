@@ -28,7 +28,6 @@ namespace SeleniumAndSpecflowTests.Google
             CleanUp();
         }
 
-
         [Given(@"Main Google Page is presented")]
         public void GivenMainGooglePageIsPresented()
         {
@@ -58,33 +57,11 @@ namespace SeleniumAndSpecflowTests.Google
             var googleSearchImageResultsPage = googleMainImagesPage.SearchByImagePath("C:\\Files\\Images\\Test1#.jpg");
         }
 
-        [When(@"On Search Results list Wikipedia Article for (.*) is selected")]
-        public void WhenOnSearchResultsListWikipediaArticleForIsSelected(string searchPhrase)
-        {
-            var googleSearchResultsPage = new GoogleSearchResultsPage(webDriver);
-            var wikipediaArticlePage = googleSearchResultsPage.EnterWikipediaArticleBySearchResult(searchPhrase);
-        }
-
         [Then(@"Results for Image on Google Search Image Results page should be displayed")]
         public void ThenResultsForImageOnGoogleSearchImageResultsPageShouldBeDisplayed()
         {
             var googleSearchImageResultsPage = new GoogleSearchImageResultsPage(webDriver);
             Assert.IsTrue(googleSearchImageResultsPage.IsLoaded());
-        }
-
-        [Then(@"Results for (.*) on Google Results page should be displayed")]
-        public void ThenResultsForOnGoogleResultsPageShouldBeDisplayed(string searchPhrase)
-        {
-            var googleSearchResultsPage = new GoogleSearchResultsPage(webDriver);
-            Assert.AreEqual(searchPhrase, googleSearchResultsPage.ReturnSearchTextBoxValue());
-        }
-
-        [Then(@"Wikipedia Article for (.*) is displayed")]
-        public void ThenWikipediaArticleForIsDisplayed(string searchPhrase)
-        {
-            var wikipediaArticlePage = new WikipediaArticlePage(webDriver);
-            Assert.IsTrue(wikipediaArticlePage.IsLoaded());
-            Assert.IsTrue(wikipediaArticlePage.ReturnArticleHeader().Contains(searchPhrase));
         }
     }
 }
